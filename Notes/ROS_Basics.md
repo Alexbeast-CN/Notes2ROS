@@ -71,9 +71,9 @@ target_link_libraries(任意名称
   ${catkin_LIBRARIES}
 )
 ```
-删除#号键，取消注释，并成以下内容，任意名称处我使用的是haha
+删除#号键，取消注释，并成以下内容，任意名称处我使用的是haha。
 
-```cpp
+```
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
@@ -93,6 +93,7 @@ target_link_libraries(任意名称
  target_link_libraries(haha
    ${catkin_LIBRARIES}
  )
+
  ```
 
 
