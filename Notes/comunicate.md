@@ -4,6 +4,7 @@
 为了解耦合，ROS中的每一个功能点都是一个单独的进程，每一个进程都是独立进行的。更确切的说，ROS是进程（也称为Nodes）的分布式框架。这些进程深圳ihai可以分布于不同的主机，不同主机协同工作，从而分散计算压力。为了实现这个目的，我们需要介绍ROS的通信机制
 
 * 话题通信（发布订阅模式）
+  
 ![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/30.png)
 
 
@@ -14,7 +15,7 @@
 
 * 参数服务器（参数共享模式）
 
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/31.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/32.png)
 
 
 ## 第一节 话题通信
