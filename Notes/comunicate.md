@@ -13,8 +13,8 @@
 
 
 * 参数服务器（参数共享模式）
-图解：
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/32.png)
+
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/31.png)
 
 
 ## 第一节 话题通信
