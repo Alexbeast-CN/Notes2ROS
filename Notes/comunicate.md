@@ -4,31 +4,17 @@
 为了解耦合，ROS中的每一个功能点都是一个单独的进程，每一个进程都是独立进行的。更确切的说，ROS是进程（也称为Nodes）的分布式框架。这些进程深圳ihai可以分布于不同的主机，不同主机协同工作，从而分散计算压力。为了实现这个目的，我们需要介绍ROS的通信机制
 
 * 话题通信（发布订阅模式）
-```mermaid
-flowchart LR
-id1([Publisher Node]) -- pubulish --> id2((topics))
-id2 -- send messages --> id3([Receiver Node])
-```
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/30.png)
+
 
 * 服务通信（请求响应模式）
-```mermaid
-graph RL
-id1([Client]) -- Requist --> id3([Server])
-id3 -- Answer --> id1
-```
+  
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/31.png)
+
 
 * 参数服务器（参数共享模式）
-```mermaid
-graph TD
-id1([Data]) -- retrive --> id2([Node1])
-id1([Data]) -- retrive --> id3([Node2])
-id1([Data]) -- retrive --> id4([Node3])
-id1([Data]) -- retrive --> id5([Node4])
-id2 -- save --> id1 
-id3 -- save --> id1 
-id4 -- save --> id1 
-id5 -- save --> id1 
-```
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/32.png)
+
 
 ## 第一节 话题通信
 话题通讯是使用频率最高的一种通信模式。以发布订阅方式实现不同节点之间数据交互的通信模式。
@@ -36,22 +22,8 @@ id5 -- save --> id1
 ### 1.1 应用场景
 机器人在执行导航功能时，使用激光雷达作为传感器。机器人会采集激光雷达感知到的信息并进行计算，然后生成运动控制信息驱动机器人底盘运动。
 
-```mermaid
-classDiagram
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/33.png)
 
-      class 激光雷达LD{
-          Publisher
-      }
-      class 导航模块{
-          Publisher & Subscriber
-          Calculation()
-      }
-      class 驱动模块{
-          Subscriber
-      }
-      激光雷达LD  --> 导航模块: LDMSG
-      导航模块 --> 驱动模块: 运动指令
-```
 
 话题通信适用于不断更新，少逻辑处理的数据传输相关的应用场景。
 
@@ -281,4 +253,3 @@ target_link_libraries(Hello_sub
 使用命令`rqt_graph`，可以查看运行中的节点图片。
 
 ![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/29.png)
-
