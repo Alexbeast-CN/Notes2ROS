@@ -255,3 +255,74 @@ target_link_libraries(Hello_sub
 使用命令`rqt_graph`，可以查看运行中的节点图片。
 
 ![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/29.png)
+
+### 1.5 话题通讯自定义 msg
+ROS 通过 `std_msgs` 封装了一些数据类型，比如：`String`, `Int32`, `Int64`, `Char`, `Bool`, `Empty`...但是这些数据一般只包含了一个`data`字段，结构单一，在传输一些复杂的数据，比如：激光雷达的信息时，`std_msgs`由于描述性比较差二显得力不从心，因此我们需要使用自定义的消息类型。
+
+#### 1.5.1 自定义 msg 文件
+自定义的 msg 文件类似于cpp中的结构体，比如：`Person.msg`
+```cpp
+string name
+uint16 age
+float64 height
+```
+自定义 msg 可以使用的数据类型有：
+* int8, int16, int32, int64 (或者无符号类型：uint*)
+* float32, float64
+* string
+* time, duration
+* other msg files
+* varible-length array[] and fiexd-length array[C]
+ROS 中还有一种特殊的类型： `header`，标头包含时间戳和ROS中常用的坐标帧信息。
+
+#### 1.5.2
+```cpp
+#include "ros/ros.h"
+#include "plumbing_pub_sub/Person.h"
+
+/*
+    发布方：发布人的消息
+        1. 包含头文件；
+        2. 初始化ros节点；
+        3. 创建ros的节点句柄；
+        4. 创建发布者对象；
+        5. 编写发布逻辑，并且发布数据。
+*/
+int main(int argc, char *argv[])
+{   
+    setlocale(LC_ALL,"");
+    ROS_INFO("这是消息的发布方");
+    //     2. 初始化ros节点；
+    ros::init(argc,argv,"Faburen");
+    //     3. 创建ros的节点句柄；
+    ros::NodeHandle nh;
+    //     4. 创建发布者对象；
+    ros::Publisher pub = nh.advertise<plumbing_pub_sub::Person>("Info",10);
+    //     5. 编写发布逻辑，并且发布数据。
+    //        5-1. 创建被发布的数据
+    plumbing_pub_sub::Person person;
+    person.name = "章三";
+    person.age = 1;
+    person.height = 0.3;
+
+    //        5-2. 设置发布频率
+    ros::Rate rate(1);
+    //        5-3. 循环发布数据 
+    while (ros::ok())
+    {
+        person.age++;
+        person.height += 0.1;
+        // 核心发布数据
+        pub.publish(person);
+        ROS_INFO("发布的消息:%s,%d,%.2f",person.name.c_str(),person.age,person.height);
+        rate.sleep();
+        // 建议
+        ros::spinOnce();
+    }
+
+    return 0;
+}
+
+```
+
+
