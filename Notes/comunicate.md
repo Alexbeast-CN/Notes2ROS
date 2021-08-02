@@ -13,6 +13,7 @@
 
 
 * 参数服务器（参数共享模式）
+
 ![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/32.png)
 
 
