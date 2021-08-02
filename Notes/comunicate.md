@@ -92,6 +92,7 @@ classDiagram
 进入功能包的`src`，创建一个cpp文件。
 ![  ](pics/24.png)
 
+#### 1.3.1 编写发布者节点
 编写发布者`node`，不过在写代码之前，先修改`c_cpp_properties.json`文件，这样我们写代码的时候才会有提示。
 ```cpp
 #include "ros/ros.h"
@@ -204,6 +205,75 @@ int main(int argc, char *argv[])
 到此为止，我们已经完成发布者节点的所有内容，并且使用`ROS_INFO`打印出了消息的内容。
 接下来，我们来完成订阅方的实现：
 
+#### 1.3.1 编写订阅者节点
 
+订阅方的写法与发布方的写法相似，不同点在于第二步，创建节点名称时需要与发布方不同（若是相同则会将第一次打开的节点终结）。然后是第四步，我们需要使用订阅相关的函数。
 
+此外，订阅需要我们创建一个子函数，帮我们打印出订阅的数据。具体的实现方式如下：
+```cpp
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+
+/*
+    订阅方实现：
+        1. 包含头文件；
+           ROS中的文本类型 ---> std_msgs/String.h
+        2. 初始化 ROS 节点；
+        3. 创建节点句柄；
+        4. 创建订阅者对象；
+        5. 处理订阅到的数据。
+        6. spin()函数
+*/
+void receiveMsg(const std_msgs::String::ConstPtr &msg)
+{
+    //通过msg获取并操作订阅到的数据
+    ROS_INFO("翠花订阅的数据：%s",msg->data.c_str());
+}
+
+int main(int argc, char *argv[])
+{
+    setlocale(LC_ALL,"");
+    //     2. 初始化 ROS 节点；
+    ros::init(argc,argv,"CuiHua");
+    //     3. 创建节点句柄；
+    ros::NodeHandle ad;
+    //     4. 创建订阅者对象；
+    ros::Subscriber sub = ad.subscribe("house",10,receiveMsg);
+    //     5. 处理订阅到的数据。
+
+    ros::spin();
+
+    return 0;
+}
+```
+
+代码编写完成后再次修改`CMakeList.txt`：
+```
+add_executable(Hello_pub
+  src/Hello_pub.cpp
+)
+add_executable(Hello_sub
+  src/Hello_sub.cpp
+)
+
+target_link_libraries(Hello_pub
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(Hello_sub
+  ${catkin_LIBRARIES}
+)
+```
+
+运行程序，结果如下：
+![  ](pics/28.png)
+
+### 1.4 补充
+#### 1.4.1 订阅者数据丢失
+订阅的时候，即使我们先打开订阅者，后打开发布者，依然会出现数据丢失的情况。这是因为在发送第一条数据的时候，`publisher`未还在`roscore`注册完毕。
+解决方法是：注册后，加入休眠`ros::Duration(3.0).sleep();`延迟第一条数据的发送。 
+
+#### 1.4.2 rqt图
+使用命令`rqt_graph`，可以查看运行中的节点图片。
+
+![  ](pics/29.png)
 
