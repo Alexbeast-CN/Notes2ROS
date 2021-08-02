@@ -56,7 +56,8 @@ classDiagram
 话题通信适用于不断更新，少逻辑处理的数据传输相关的应用场景。
 
 ### 1.2 话题通信理论模型：
-![ ](./pics/23.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/23.png)
+
 话题通信实现模型是比较复杂的，该模型如下图所示,该模型中涉及到三个角色:
 
 * ROS Master (管理者)：管理和匹配话题
@@ -90,7 +91,8 @@ classDiagram
 首先在创建工作空间，`catkin_make`编译，打开 vscode，创建ROS功能包。
 
 进入功能包的`src`，创建一个cpp文件。
-![  ](pics/24.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/24.png)
+
 
 #### 1.3.1 编写发布者节点
 编写发布者`node`，不过在写代码之前，先修改`c_cpp_properties.json`文件，这样我们写代码的时候才会有提示。
@@ -136,14 +138,16 @@ int main(int argc, char *argv[])
 然后我们试着编译一下，编译之前，记得修改`CMakeLists.txt`和`tasks.json`文件。
 
 运行文件:
-![  ](pics/25.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/25.png)
+
 
 运行结果是啥也没有，这是因为我们没有编写任何输出，也没有编写接收数据。要测试节点是否发布了消息，我们可以使用`rostopic`来查看话题内容，比如我这里使用的是：
 ```
 rostopic echo house
 ```
 结果为：
-![  ](pics/26.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/26.png)
+
 
 但我们之前的任务还没有完成，下面我们再补充一下代码，打印10HZ，打印次数的需求：
 ```cpp
@@ -200,7 +204,8 @@ int main(int argc, char *argv[])
 }
 ```
 输出结果为：
-![  ](pics/27.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/27.png)
+
 
 到此为止，我们已经完成发布者节点的所有内容，并且使用`ROS_INFO`打印出了消息的内容。
 接下来，我们来完成订阅方的实现：
@@ -265,7 +270,7 @@ target_link_libraries(Hello_sub
 ```
 
 运行程序，结果如下：
-![  ](pics/28.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/28.png)
 
 ### 1.4 补充
 #### 1.4.1 订阅者数据丢失
@@ -275,5 +280,5 @@ target_link_libraries(Hello_sub
 #### 1.4.2 rqt图
 使用命令`rqt_graph`，可以查看运行中的节点图片。
 
-![  ](pics/29.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/29.png)
 
