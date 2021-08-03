@@ -40,6 +40,10 @@
     - [1.4 补充](#14-补充)
       - [1.4.1 订阅者数据丢失](#141-订阅者数据丢失)
       - [1.4.2 rqt图](#142-rqt图)
+    - [1.5 话题通讯自定义 msg](#15-话题通讯自定义-msg)
+      - [1.5.1 自定义 msg 文件](#151-自定义-msg-文件)
+      - [1.5.3 创建可以被调用的 msg 文件](#153-创建可以被调用的-msg-文件)
+      - [1.5.4 案例 2](#154-案例-2)
 ---
 
 # 第一章 ROS概述
@@ -633,3 +637,190 @@ target_link_libraries(Hello_sub
 使用命令`rqt_graph`，可以查看运行中的节点图片。
 
 ![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/29.png)
+
+### 1.5 话题通讯自定义 msg
+ROS 通过 `std_msgs` 封装了一些数据类型，比如：`String`, `Int32`, `Int64`, `Char`, `Bool`, `Empty`...但是这些数据一般只包含了一个`data`字段，结构单一，在传输一些复杂的数据，比如：激光雷达的信息时，`std_msgs`由于描述性比较差二显得力不从心，因此我们需要使用自定义的消息类型。
+
+#### 1.5.1 自定义 msg 文件
+自定义的 msg 文件类似于cpp中的结构体，比如：`Person.msg`
+```cpp
+string name
+uint16 age
+float64 height
+```
+自定义 msg 可以使用的数据类型有：
+* int8, int16, int32, int64 (或者无符号类型：uint*)
+* float32, float64
+* string
+* time, duration
+* other msg files
+* varible-length array[] and fiexd-length array[C]
+ROS 中还有一种特殊的类型： `header`，标头包含时间戳和ROS中常用的坐标帧信息。
+
+#### 1.5.3 创建可以被调用的 msg 文件
+**流程：**
+**1.** 定义 msg 文件
+  在功包下创建`msg`文件夹，创建文件`Person.msg`
+  ```
+  string name
+  uint16 age
+  float64 height
+  ```
+**2.** 编辑配置文件
+在`package.xml`中添加编译依赖与执行依赖：
+```
+<build_depend>message_generation</build_depend>
+<exec_depend>message_runtime</exec_depend>
+```
+
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/34.png)
+
+
+在`CMakeLists.txt`中编辑`msg`相关配置
+
+```xml
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  message_generation
+)
+# 需要加入 message_generation,必须有 std_msgs
+## 配置 msg 源文件
+add_message_files(
+  FILES
+  Person.msg
+)
+# 生成消息时依赖于 std_msgs
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+#执行时依赖
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES demo02_talker_listener
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+#  DEPENDS system_lib
+)
+```
+
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/35.png)
+
+>需要添加的地方不止图片中的红框处，因为屏幕大小，无法全部截图
+
+**3.** 编译
+编译后会在(.../工作空间/devel/include/包名/xxx.h)路径下生成在C++中可以包含的`Person.h`头文件。
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/36.png)
+
+
+在包含这个头文件之前，我们需要在`c_cpp_properties.json`中添加`Person.h`文件的路径
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/37.png)
+
+
+
+#### 1.5.4 案例 2
+
+使用之前的`Talker & Listener`模型，传输自定义`msg`。首先按照前文的方法创建`msg`文件。
+
+然后开始编写发布者节点，此程序的编写与之前案例中的发布者类似，区别比较大的地方是在创建发布者对象和被发布的数据的时候，这部分内容由`std_msgs`变成了我们自定义的`person`。
+
+```cpp
+#include "ros/ros.h"
+#include "plumbing_pub_sub/Person.h"
+
+/*
+    发布方：发布人的消息
+        1. 包含头文件；
+        2. 初始化ros节点；
+        3. 创建ros的节点句柄；
+        4. 创建发布者对象；
+        5. 编写发布逻辑，并且发布数据。
+*/
+int main(int argc, char *argv[])
+{   
+    setlocale(LC_ALL,"");
+    ROS_INFO("这是消息的发布方");
+    //     2. 初始化ros节点；
+    ros::init(argc,argv,"Faburen");
+    //     3. 创建ros的节点句柄；
+    ros::NodeHandle nh;
+    //     4. 创建发布者对象；
+    ros::Publisher pub = nh.advertise<plumbing_pub_sub::Person>("Info",10);
+    //     5. 编写发布逻辑，并且发布数据。
+    //        5-1. 创建被发布的数据
+    plumbing_pub_sub::Person person;
+    person.name = "章三";
+    person.age = 1;
+    person.height = 0.3;
+
+    //        5-2. 设置发布频率
+    ros::Rate rate(1);
+    //        5-3. 循环发布数据 
+    while (ros::ok())
+    {
+        person.age++;
+        person.height += 0.1;
+        // 核心发布数据
+        pub.publish(person);
+        ROS_INFO("发布的消息:%s,%d,%.2f",person.name.c_str(),person.age,person.height);
+        rate.sleep();
+        // 建议添加
+        ros::spinOnce();
+    }
+
+    return 0;
+}
+```
+编译前修改`CMakeLists.txt`：
+需要添加`add_dependencies`用以设置所依赖的消息相关的中间文件。
+> 如果需要看截图，请往后翻
+
+运行发布者节点：
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/38.png)
+
+
+然后开始编写接收者节点,与之前案例 1 的订阅者节点依然没有很大区别，也是将`std_msgs`修改成了我们自定义的`msg`文件。
+```cpp
+#include "ros/ros.h"
+#include "plumbing_pub_sub/Person.h"
+
+/*
+    订阅方：订阅消息
+        1. 包含头文件；
+            #include "plumbing_pub_sub/Person.h"
+        2. 初始化ros节点；
+        3. 创建ros的节点句柄；
+        4. 创建订阅者对象；
+        5. 编写一个回调函数，处理订阅的数据；
+        6. 调用spin()函数。
+*/
+void doPerson(const plumbing_pub_sub::Person::ConstPtr& person)
+{
+    ROS_INFO("订阅到的信息:%s,%d,%.2f",person->name.c_str(),person->age,person->height);
+}
+
+int main(int argc, char  *argv[])
+{
+    setlocale(LC_ALL,"");
+    ROS_INFO("这是订阅方：");
+    //     2. 初始化ros节点；
+    ros::init(argc,argv,"Jieshouren");
+    //     3. 创建ros的节点句柄；
+    ros::NodeHandle nh;
+    //     4. 创建订阅者对象；
+    ros::Subscriber sub = nh.subscribe("Info",10,doPerson);
+    //     5. 编写一个回调函数，处理订阅的数据；
+    //      回调函数在上面
+    //     6. 调用spin()函数。
+    ros::spin();
+
+    return 0;
+}
+```
+编译前修改`CMakeLists.txt`：
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/40.png)
+
+
+运行：
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/39.png)
