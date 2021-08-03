@@ -705,7 +705,7 @@ catkin_package(
 )
 ```
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/34.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/41.png)
 
 >因为屏幕大小，无法全部截图
 
