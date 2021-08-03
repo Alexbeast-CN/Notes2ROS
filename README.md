@@ -705,9 +705,9 @@ catkin_package(
 )
 ```
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/35.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/41.png)
 
->需要添加的地方不止图片中的红框处，因为屏幕大小，无法全部截图
+>因为屏幕大小，无法全部截图
 
 **3.** 编译
 编译后会在(.../工作空间/devel/include/包名/xxx.h)路径下生成在C++中可以包含的`Person.h`头文件。
@@ -774,7 +774,7 @@ int main(int argc, char *argv[])
 ```
 编译前修改`CMakeLists.txt`：
 需要添加`add_dependencies`用以设置所依赖的消息相关的中间文件。
-> 如果需要看截图，请往后翻
+![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/35.png)
 
 运行发布者节点：
 ![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/38.png)
