@@ -194,7 +194,7 @@ $ sudo dpkg -i code_1.58.2-1626302803_amd64.deb
 之后就可以在应用里看到vscode了，右键可以将其添加到左边的收藏夹。
 ![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/9.png)
 
-## 2.2 搭建 ROS 的开发环境
+### 2.2 搭建 ROS 的开发环境
 进入VSCode后可以下载如图所示的一些插件。
 
 ![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics.png)
@@ -267,7 +267,7 @@ code .
 
 如果报错了也不要慌，那可能是我们的依赖写错了，正确的3个依赖名称是:`rospy`, `roscpp`, `std_msgs`。我们只需要将`CMakeLists.txt`和`package.xml`文件中的全部错误依赖名称修改为正确的就可以了。
 
-## 2.3 开始写cpp程序
+### 2.3 开始写cpp程序
 在src下创建一个叫`hello_vscode.cpp`的文件。写入一个输出代码：
 ```cpp
 #include "ros/ros.h"
