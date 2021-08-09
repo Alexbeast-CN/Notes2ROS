@@ -56,4 +56,97 @@ r2 -- 5产生相应 --> r3
 
 ### 2.2.1 一个案例
 
-需求：
+需求：编写服务通信，客户端提交两个整数至服务端，服务端求和并响应结果到客户端。
+
+1. 为案例创建一个功能包：
+
+这个不多介绍了。
+
+2. 在功能包下创建一个`srv`文件夹，并在其中创建`xxx.srv`文件。
+
+![](./pics/1.png)
+
+3. 修改配置文件：
+
+在`package.xml`中添加`srv`（也是`msg`）相关的编译依赖和执行依赖：
+
+```xml
+<build_depend>message_generation</build_depend>
+<exec_depend>message_runtime</exec_depend>
+```
+在`CMakeLists.txt`中添加`srv`相关配置：
+
+```xml
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  message_generation
+)
+# 需要加入 message_generation,必须有 std_msgs
+add_service_files(
+  FILES
+  AddInts.srv
+)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+```
+
+4. 编译文件
+
+编译后在(.../工作空间/devel/include/包名/xxx.h)路径下会自动生成一些中间文件。
+
+![](./pics/2.png)
+
+到这里，我们自定义的一个`srv`就完成了。
+
+5. 编写服务端节点
+
+```cpp
+#include "ros/ros.h"
+#include "plumbing_server_client/Addints.h"
+
+/* 
+    服务端实现：解析客户端提交的数据，并运算再产生响应
+        1. 包含头文件；
+        2. 初始化ROS节点；
+        3. 创建节点句柄；
+        4. 创建一个服务对象；
+        5. 处理请求并产生相应；
+        6. spin()
+*/
+bool doNums(plumbing_server_client::Addints::Request &request,
+            plumbing_server_client::Addints::Response &response)
+{
+    // 1. 处理请求
+    int num1 = request.num1;
+    int num2 = request.num2;
+    ROS_INFO("收到的数据是:num1 = %d, num2 = %d", num1, num2);
+    // 2. 组织响应
+    int sum = num1 + num2;
+    response.sum = sum;
+    ROS_INFO("求和结果是：sum = %d", sum);
+
+    return true;
+}
+
+int main(int argc, char *argv[])
+{   
+        setlocale(LC_ALL,"");
+        // 2. 初始化ROS节点；
+        ros::init(argc,argv,"Heishui"); // 节点名称需要保证唯一
+        // 3. 创建节点句柄；
+        ros::NodeHandle nh;
+        // 4. 创建一个服务对象；
+        ros::ServiceServer server = nh.advertiseService("Addints",doNums);
+        ROS_INFO("服务器启动");
+        // 5. 处理请求并产生相应；
+
+        // 6. spin()
+        ros::spin();
+    return 0;
+}
+```
+
