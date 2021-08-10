@@ -44,6 +44,13 @@
       - [1.5.1 自定义 msg 文件](#151-自定义-msg-文件)
       - [1.5.3 创建可以被调用的 msg 文件](#153-创建可以被调用的-msg-文件)
       - [1.5.4 案例 2](#154-案例-2)
+  - [第二节 服务通信](#第二节-服务通信)
+    - [2.2.1 理论模型](#221-理论模型)
+    - [2.2.2 一个案例](#222-一个案例)
+    - [2.2.3 编写 srv 文件](#223-编写-srv-文件)
+    - [2.2.4 编写服务端节点](#224-编写服务端节点)
+    - [2.2.5 编写客户端节点](#225-编写客户端节点)
+    - [2.2.5 优化客户端节点](#225-优化客户端节点)
 ---
 
 # 第一章 ROS概述
@@ -59,10 +66,10 @@ catkin_make
 
 之后我们点击左边的文件夹，进入到home，就可以看到我们刚刚创建的 ROS_ws文件夹。
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/1.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/1.png)
 在此文件夹下面我们又可以看到由`catkin_make`创建的3个文件夹。
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/2.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/2.png)
 
 ### 2. 创建 ROS 包
 进入src中，右键在终端中打开，然后输入以下指令：
@@ -76,7 +83,7 @@ catkin_create_pkg 自定义ROS包名 roscpp rospy std_msgs
 
 这时我们会看到在文件夹中，出现了下面的两个文件：
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/3.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/3.png)
 
 ### 3. 写一个 Hello World 程序
 然后我们进入hello_world中，在hello_world的src中右键创建一个文本文件，重命名为：hello_world.cpp
@@ -135,7 +142,7 @@ target_link_libraries(任意名称
  ```
 
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/4.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/4.png)
 
 ### 5. 编译
 进入工作空间
@@ -171,33 +178,33 @@ echo "source ~/工作空间/devel/setup.bash" >> ~/.bashrc
 下一次就不用再输入`source ./devel/setup.bash`
 
 结果如下：
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/5.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/5.png)
 
 ## 第二节 Code in VSCode
 
 ### 2.1 下载 vscode
 下载vscode的方式有很多种，其中比较简单是直接从ubuntu software里下载
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/6.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/6.png)
 
 
 如果在ubuntu software中找不到vscode，可以从官网下载.deb包。
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/7.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/7.png)
 
 下载好后，在`.deb`包所在的目录处，打开终端输入:
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/8.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/8.png)
 
 ```
 $ sudo dpkg -i code_1.58.2-1626302803_amd64.deb
 ```
 
 之后就可以在应用里看到vscode了，右键可以将其添加到左边的收藏夹。
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/9.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/9.png)
 
 ### 2.2 搭建 ROS 的开发环境
 进入VSCode后可以下载如图所示的一些插件。
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics.10png)
 
 其中Jupyter 和 Pylance 非必须。
 
@@ -209,7 +216,7 @@ cd xxx_ws
 catkin_make
 ```
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/11.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/11.png)
 
 完成后再使用
 ```
@@ -219,11 +226,11 @@ code .
 
 然后我们可以在src处右键 创建一个catkin的包
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/12.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/12.png)
 
 随后两步是命名和创建包的依赖
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/13.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/13.png)
 
 包的依赖就是上一节讲的` roscpp`, `rospy`, `std_msgs`。
 
@@ -231,11 +238,11 @@ code .
 
 然后我们使用快捷键`ctrl`+`shift`+`b`，点击catkin_make:build 后面的齿轮，进入配置文件。
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/14.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/14.png)
 
 初始的配置文件如图：
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/15.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/15.png)
 
 
 我们需要把它替换为其他的代码：
@@ -263,7 +270,7 @@ code .
 
 然后我们再使用快捷键`ctrl`+`shift`+`b`编译一下我们刚刚创建的包，出现以下结果则创建成功，这也意味这我们的ROS环境搭建成功。
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/16.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/16.png)
 
 如果报错了也不要慌，那可能是我们的依赖写错了，正确的3个依赖名称是:`rospy`, `roscpp`, `std_msgs`。我们只需要将`CMakeLists.txt`和`package.xml`文件中的全部错误依赖名称修改为正确的就可以了。
 
@@ -282,7 +289,7 @@ int main(int argc, char *argv[])
 }
 ```
 在写的过程中我们会发现，在写与`ros`有关的代码的时候，编辑器并不会出现提示，这是因为我们选择的编译器有点老了，我们需要在修改`.vscode`文件夹中的`c_cpp_properties.json`文件。修改或添加`"cppStandard": "c++20"`就可以了。
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/17.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/17.png)
 
 此时，我们再编写就会出现提示了。
 
@@ -300,7 +307,7 @@ target_link_libraries(任意名称
 
 然后我们用`ctrl`+`shift`+`b`编译文件。如图所示就是成功了。
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/18.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/18.png)
 
 然后，我们可以在vscode中之间使用快捷键`ctrl`+`shift`+`~`新建终端，vscode中的终端与我们在ubuntu系统中创建的终端使用相同。
 现开一个ros master:
@@ -319,14 +326,14 @@ out：
 ```
 [ INFO] [1627223101.571287843]: Hello_vscode
 ```
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/19.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/19.png)
 
 ## 第三节 launch文件的编写
 
 一般大型项目需要一次性启动多个节点，一个一个的启动过于麻烦了，launch文件的用处是可以使我们一次性启动多个节点。
 
 ### 3.1 一个ROS工作空间里的内容
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/20.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/20.png)
 
 launch文件就储存在launch文件夹下面
 
@@ -373,10 +380,10 @@ roslaunch 包名 xxx.launch
 source ./devel/setup.bash
 roslaunch hello_vscode start_turtle.launch
 ```
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/21.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/21.png)
 
 out:
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/22.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/22.png)
 
 process的[ ]中的内容很多，是因为我`name`后面是空的，这个名称是系统自动命名的结果，如果我们自己命名了，这里就会显示我们命名的节点名称。这可以方便我们看launch过程中有哪些节点扑街了。（大型项目中的节点经常扑街，从GitHub上下载一个项目跑跑全是error）。
 
@@ -387,17 +394,17 @@ process的[ ]中的内容很多，是因为我`name`后面是空的，这个名�
 
 * 话题通信（发布订阅模式）
   
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/30.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/30.png)
 
 
 * 服务通信（请求响应模式）
   
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/31.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/31.png)
 
 
 * 参数服务器（参数共享模式）
   
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/32.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/32.png)
 
 
 ## 第一节 话题通信
@@ -406,13 +413,13 @@ process的[ ]中的内容很多，是因为我`name`后面是空的，这个名�
 ### 1.1 应用场景
 机器人在执行导航功能时，使用激光雷达作为传感器。机器人会采集激光雷达感知到的信息并进行计算，然后生成运动控制信息驱动机器人底盘运动。
 
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/33.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/33.png)
 
 
 话题通信适用于不断更新，少逻辑处理的数据传输相关的应用场景。
 
 ### 1.2 话题通信理论模型：
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/23.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/23.png)
 
 话题通信实现模型是比较复杂的，该模型如下图所示,该模型中涉及到三个角色:
 
@@ -447,7 +454,7 @@ process的[ ]中的内容很多，是因为我`name`后面是空的，这个名�
 首先在创建工作空间，`catkin_make`编译，打开 vscode，创建ROS功能包。
 
 进入功能包的`src`，创建一个cpp文件。
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/24.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/24.png)
 
 
 #### 1.3.1 编写发布者节点
@@ -494,7 +501,7 @@ int main(int argc, char *argv[])
 然后我们试着编译一下，编译之前，记得修改`CMakeLists.txt`和`tasks.json`文件。
 
 运行文件:
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/25.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/25.png)
 
 
 运行结果是啥也没有，这是因为我们没有编写任何输出，也没有编写接收数据。要测试节点是否发布了消息，我们可以使用`rostopic`来查看话题内容，比如我这里使用的是：
@@ -502,7 +509,7 @@ int main(int argc, char *argv[])
 rostopic echo house
 ```
 结果为：
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/26.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/26.png)
 
 
 但我们之前的任务还没有完成，下面我们再补充一下代码，打印10HZ，打印次数的需求：
@@ -560,7 +567,7 @@ int main(int argc, char *argv[])
 }
 ```
 输出结果为：
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/27.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/27.png)
 
 
 到此为止，我们已经完成发布者节点的所有内容，并且使用`ROS_INFO`打印出了消息的内容。
@@ -626,7 +633,7 @@ target_link_libraries(Hello_sub
 ```
 
 运行程序，结果如下：
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/28.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/28.png)
 
 ### 1.4 补充
 #### 1.4.1 订阅者数据丢失
@@ -636,7 +643,7 @@ target_link_libraries(Hello_sub
 #### 1.4.2 rqt图
 使用命令`rqt_graph`，可以查看运行中的节点图片。
 
-![ ](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/29.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/29.png)
 
 ### 1.5 话题通讯自定义 msg
 ROS 通过 `std_msgs` 封装了一些数据类型，比如：`String`, `Int32`, `Int64`, `Char`, `Bool`, `Empty`...但是这些数据一般只包含了一个`data`字段，结构单一，在传输一些复杂的数据，比如：激光雷达的信息时，`std_msgs`由于描述性比较差二显得力不从心，因此我们需要使用自定义的消息类型。
@@ -673,7 +680,7 @@ ROS 中还有一种特殊的类型： `header`，标头包含时间戳和ROS中�
 <exec_depend>message_runtime</exec_depend>
 ```
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/34.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/34.png)
 
 
 在`CMakeLists.txt`中编辑`msg`相关配置
@@ -705,17 +712,17 @@ catkin_package(
 )
 ```
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/41.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/41.png)
 
 >因为屏幕大小，无法全部截图
 
 **3.** 编译
 编译后会在(.../工作空间/devel/include/包名/xxx.h)路径下生成在C++中可以包含的`Person.h`头文件。
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/36.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/36.png)
 
 
 在包含这个头文件之前，我们需要在`c_cpp_properties.json`中添加`Person.h`文件的路径
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/37.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/37.png)
 
 
 
@@ -774,10 +781,10 @@ int main(int argc, char *argv[])
 ```
 编译前修改`CMakeLists.txt`：
 需要添加`add_dependencies`用以设置所依赖的消息相关的中间文件。
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/35.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/35.png)
 
 运行发布者节点：
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/38.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/38.png)
 
 
 然后开始编写接收者节点,与之前案例 1 的订阅者节点依然没有很大区别，也是将`std_msgs`修改成了我们自定义的`msg`文件。
@@ -819,8 +826,380 @@ int main(int argc, char  *argv[])
 }
 ```
 编译前修改`CMakeLists.txt`：
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/40.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/40.png)
 
 
 运行：
-![](https://github.com/Alexbeast-CN/Notes2ROS/blob/main/Notes/pics/39.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Basic/pics/39.png)
+
+## 第二节 服务通信
+
+服务通信时基于**请求响应**模式的，是一种应答机制。也就是一个节点A向另外一个节点B发送请求，B接收处理请求并产生相应结果返回给A。比如下面的应用场景：
+
+>机器人巡逻过程中，控制系统分析传感器数据发现可疑物体或人... 此时需要拍摄照片并留存。
+
+在上述场景中，就使用到了服务通信。一个节点需要向相机节点发送拍照请求，相机节点处理请求，并返回处理结果。
+
+与上述应用类似的，服务通信更适用于对实时性有要求、具有一定逻辑处理的应用场景。
+
+### 2.2.1 理论模型
+
+模型中包含3个角色：
+
+* Master    ---> 管理者
+* Server    ---> 服务端
+* Client    ---> 客户端
+
+框图：
+
+```mermaid
+graph RL
+r1([Master])
+r2([Server])
+r3([Client])
+
+r2 -- 1发布服务消息 --> r1
+r3 -- 2查找服务 --> r1
+r1 -- 3匹配话题 --> r3
+r3 -- 4请求数据 --> r2
+r2 -- 5产生相应 --> r3
+```
+
+其主要流程如下：
+
+1. 服务端注册自身信息；
+2. 客户端请求服务；
+3. 管理者匹配话题，并把服务端的地址给客户端；
+4. 客户端与客户端建立连接，请求数据；
+5. 服务端产生相应。
+
+注意：
+
+1. 保证顺序，客户端发起请求时，服务端必须已启动。
+2. 客户端和服务端都可以存在多个。
+   
+关注点：
+
+1. 流程已经被封装了，直接调用就可以了；
+2. 话题；
+3. 服务端；
+4. 客户端；
+5. 数据载体。
+
+### 2.2.2 一个案例
+
+需求：编写服务通信，客户端提交两个整数至服务端，服务端求和并响应结果到客户端。
+
+### 2.2.3 编写 srv 文件
+
+1. **为案例创建一个功能包：**
+
+这个不多介绍了。
+
+2. **在功能包下创建一个`srv`文件夹，并在其中创建`xxx.srv`文件。**
+
+![]((https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/1.png))
+
+3. **修改配置文件：**
+
+在`package.xml`中添加`srv`（也是`msg`）相关的编译依赖和执行依赖：
+
+```xml
+<build_depend>message_generation</build_depend>
+<exec_depend>message_runtime</exec_depend>
+```
+在`CMakeLists.txt`中添加`srv`相关配置：
+
+```xml
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  message_generation
+)
+# 需要加入 message_generation,必须有 std_msgs
+add_service_files(
+  FILES
+  AddInts.srv
+)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+```
+
+4. **编译文件：**
+
+编译后在(.../工作空间/devel/include/包名/xxx.h)路径下会自动生成一些中间文件。
+
+![]((https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/2.png))
+
+到这里，我们自定义的一个`srv`就完成了。
+
+### 2.2.4 编写服务端节点
+
+5. **编写服务端节点：**
+
+```cpp
+#include "ros/ros.h"
+#include "plumbing_server_client/Addints.h"
+
+/* 
+    服务端实现：解析客户端提交的数据，并运算再产生响应
+        1. 包含头文件；
+        2. 初始化ROS节点；
+        3. 创建节点句柄；
+        4. 创建一个服务对象；
+        5. 处理请求并产生相应；
+        6. spin()
+*/
+bool doNums(plumbing_server_client::Addints::Request &request,
+            plumbing_server_client::Addints::Response &response)
+{
+    // 1. 处理请求
+    int num1 = request.num1;
+    int num2 = request.num2;
+    ROS_INFO("收到的数据是:num1 = %d, num2 = %d", num1, num2);
+    // 2. 组织响应
+    int sum = num1 + num2;
+    response.sum = sum;
+    ROS_INFO("求和结果是：sum = %d", sum);
+
+    return true;
+}
+
+int main(int argc, char *argv[])
+{   
+        setlocale(LC_ALL,"");
+        // 2. 初始化ROS节点；
+        ros::init(argc,argv,"Heishui"); // 节点名称需要保证唯一
+        // 3. 创建节点句柄；
+        ros::NodeHandle nh;
+        // 4. 创建一个服务对象；
+        ros::ServiceServer server = nh.advertiseService("Addints",doNums);
+        ROS_INFO("服务器启动");
+        // 5. 处理请求并产生相应；
+
+        // 6. spin()
+        ros::spin();
+    return 0;
+}
+```
+
+6. **修改`CMakeLists.txt`：**
+
+老生常谈的修改方式，把节点和功能包添加到`CMakeList.txt`
+
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/3.png)
+
+7. **编译 + 运行：**
+
+`ctrl` + `shift` + `B` 编译。然后运行节点。
+
+首先`roscore`
+
+然后打开一个新的终端，运行服务端节点：
+
+```
+source ./devel/setup.bash 
+rosrun plumbing_server_client demo01_service 
+```
+
+(https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/4.png)
+
+8. **使用ROS指令来接收服务：**
+
+首先，右击`terminal`将其页面分割成两个，方便我们同时查看客户端和服务端。
+
+(https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/5.png)
+
+
+然后，在新的`terminal`中输入:
+
+```
+source ./devel/setup.bash 
+rosservice call Addints [tab]
+```
+
+上面的代码中`Addints`是我命名的服务端节点，输入完按键盘上的`tab`键自动补齐，然后就出现了我们的请求服务端是需要输入的两个数字。
+
+(https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/6.png)
+
+终端里可以的两个数字可以自行修改（Ubuntu的终端不能直接用鼠标点，需要用键盘的左右方向键）
+
+(https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/7.png)
+
+**看到这个，我们就可以确定服务端编写成功！**
+
+### 2.2.5 编写客户端节点
+
+9. **编写用户端：**
+
+对照着服务端进行编写就可以了：
+
+```cpp
+#include "ros/ros.h"
+#include "plumbing_server_client/Addints.h"
+
+/* 
+    客户端：提交两个整数，并处理相应的结果。
+
+        1. 包含头文件；
+        2. 初始化ROS节点；
+        3. 创建节点句柄；
+        4. 创建一个客户端对象；
+        5. 提交请求并处理响应； 
+*/
+
+int main(int argc, char *argv[])
+{
+    setlocale(LC_ALL,"");
+    //     2. 初始化ROS节点；
+    ros::init(argc,argv,"Dabao");
+    //     3. 创建节点句柄；
+    ros::NodeHandle nh;
+    //     4. 创建一个客户端对象；
+    ros::ServiceClient client = nh.serviceClient<plumbing_server_client::Addints>("Addints");
+    //     5. 提交请求并处理响应； 
+    plumbing_server_client::Addints ai;
+    //     5-1. 组织请求
+    ai.request.num1 = 100;
+    ai.request.num2 = 200;
+    //     5-2. 处理响应
+    bool flag = client.call(ai);
+    if (flag)
+    {
+        ROS_INFO("响应成功！");
+        // 获取结果
+        ROS_INFO("两数之和是：%d",ai.response.sum);
+    }
+    else
+        ROS_INFO("处理失败！");
+    return 0;
+}
+```
+
+10. **修改`CMakeLists.txt`：**
+    
+11. **编译 + 运行：**
+
+这里之间放运行结果：
+(https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/8.png)
+
+### 2.2.5 优化客户端节点
+
+1. **要让命令输入的时候可以传参，就要用到`main()`括号中的`argc, argv`了那么我们在客户端主函数体的最前面写入：**
+
+```cpp
+// 优化实现，获取命令中的参数：
+    if(argc != 3)
+    {
+        ROS_INFO("提交的参数数量不正确！");
+        return 1;
+    }
+```
+
+这一部分是要求命令必须传入3个参数，否则之间就返回了。着三个参数分别是： 节点名，`num1`和`num2`。
+
+写完后，我们把后面的组织请求处修改一下：
+
+```cpp
+//     5-1. 组织请求
+ai.request.num1 = atoi(argv[1]);
+ai.request.num2 = atoi(argv[2]);
+```
+
+让请求的`ai`的两个值分别传入两个参数。
+
+我们输入下次命令，看一下结果：
+
+```
+rosrun plumbing_server_client demo01_client 1 5
+```
+和
+```
+rosrun plumbing_server_client demo01_client
+```
+
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/9.png)
+
+2. **我们之前说过，在服务通信的方式中，一定要先启动服务器，但是有时我们使用`launch` 启动一堆节点的时候，先后顺序也许就不对了，为了避免之间报错，我们需要再次优化客户端节点**
+
+在ROS中，有2个函数可以做到让客户端启动后挂起，等待服务器启动。
+```cpp
+//     函数1
+client.waitForExistence();
+//     函数2
+ros::service::waitForService("服务器的节点名称");
+```
+
+这两个函数选择其中一个就可以了，位置是放在判断响应之前。那么这个完整的服务器函数就如下：
+```cpp
+#include "ros/ros.h"
+#include "plumbing_server_client/Addints.h"
+
+/* 
+    客户端：提交两个整数，并处理相应的结果。
+
+        1. 包含头文件；
+        2. 初始化ROS节点；
+        3. 创建节点句柄；
+        4. 创建一个客户端对象；
+        5. 提交请求并处理响应； 
+
+    实现参数的动态提交：
+        1. 格式： rosrun xxx xxx 12 32
+        2. 节点执行时，需要获取命令中的参数，并组织进 request
+
+    问题：
+        如果先启动客户端，那么就会请求异常
+    需求：
+        如果先启动客户端，不要直接抛出异常，而是挂起，等在服务器启动后再正常请求
+    解决：
+        ROS中的内置函数可以让客户端启动后挂起，等待服务器启动。
+*/
+
+int main(int argc, char *argv[])
+{
+    setlocale(LC_ALL,"");
+    // 优化实现，获取命令中的参数：
+    if(argc != 3)
+    {
+        ROS_INFO("提交的参数数量不正确！");
+        return 1;
+    }
+
+    //     2. 初始化ROS节点；
+    ros::init(argc,argv,"Dabao");
+    //     3. 创建节点句柄；
+    ros::NodeHandle nh;
+    //     4. 创建一个客户端对象；
+    ros::ServiceClient client = nh.serviceClient<plumbing_server_client::Addints>("Addints");
+    //     5. 提交请求并处理响应； 
+    plumbing_server_client::Addints ai;
+    //     5-1. 组织请求
+    ai.request.num1 = atoi(argv[1]);
+    ai.request.num2 = atoi(argv[2]);
+    //     5-2. 处理响应
+    //     调用判断服务器状态的函数
+    //     函数1
+    //client.waitForExistence();
+    //     函数2
+    ros::service::waitForService("Addints");
+    bool flag = client.call(ai);
+    if (flag)
+    {
+        ROS_INFO("响应成功！");
+        // 获取结果
+        ROS_INFO("两数之和是：%d",ai.response.sum);
+    }
+    else
+        ROS_INFO("处理失败！");
+    return 0;
+}
+```
+
+当我们先启动客户端后启动服务端的结果是：
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/10.png)
+
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/11.png)
