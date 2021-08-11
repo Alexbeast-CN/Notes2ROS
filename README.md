@@ -852,18 +852,7 @@ int main(int argc, char  *argv[])
 
 框图：
 
-```mermaid
-graph RL
-r1([Master])
-r2([Server])
-r3([Client])
-
-r2 -- 1发布服务消息 --> r1
-r3 -- 2查找服务 --> r1
-r1 -- 3匹配话题 --> r3
-r3 -- 4请求数据 --> r2
-r2 -- 5产生相应 --> r3
-```
+![]((https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/12.png))
 
 其主要流程如下：
 
