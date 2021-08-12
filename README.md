@@ -1116,7 +1116,7 @@ rosrun plumbing_server_client demo01_client 1 5
 rosrun plumbing_server_client demo01_client
 ```
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/9.png)
+![ ](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/9.png)
 
 2. **我们之前说过，在服务通信的方式中，一定要先启动服务器，但是有时我们使用`launch` 启动一堆节点的时候，先后顺序也许就不对了，为了避免之间报错，我们需要再次优化客户端节点**
 
