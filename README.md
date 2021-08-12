@@ -1352,7 +1352,7 @@ rosparam list
 
 6. 修改`CMakeList.txt`
 
-![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/15.png)
+![](https://github.com/Alexbeast-CN/Notes2ROS/tree/main/Notes/Cominication/pics/16.png)
 
 7. 编写节点文件的框架
 

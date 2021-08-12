@@ -153,7 +153,7 @@ rosparam list
 
 6. 修改`CMakeList.txt`
 
-![](./pics/15.png)
+![](./pics/16.png)
 
 7. 编写节点文件的框架
 
