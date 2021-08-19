@@ -161,6 +161,13 @@ ROSCPP_DECL void spin();
     实现：
         1. 利用ros::rate() 学过了
         2. 利用定时器
+            创建： nh.createTimer()
+            参数1： 时间间隔
+            参数2： 回调函数（时间事件 TimerEvent）
+            参数3： 是否只执行一次
+            参数4： 是否自动启动（默认是true，如需手动启动使用 timer.start())
+
+            定时器启动后： ros::spin()
 
 */
 
@@ -168,6 +175,7 @@ ROSCPP_DECL void spin();
 void cb(const ros::TimerEvent& event)
 {
     ROS_INFO("-----------------");
+    ROS_INFO("函数被调用的时刻:%.2f",event.current_real.toSec());
 }
 
 int main(int argc, char *argv[])
@@ -233,11 +241,56 @@ int main(int argc, char *argv[])
     //          const ros::TimerCallback &callback,     // 回调函数 -- 封装业务
     //          bool oneshot = false,                   // 是否是一次性
     //          bool autostart = true)                  // 自动回调
-    ros::Timer timer = nh.createTimer(ros::Duration(1),cb);
+
+    // ros::Timer timer = nh.createTimer(ros::Duration(1),cb);
+    // ros::Timer timer = nh.createTimer(ros::Duration(1),cb,true);
+    ros::Timer timer = nh.createTimer(ros::Duration(1),cb,false,false);
+    timer.start(); //手动启动定时器
+
     ros::spin();
 
     return 0;
 }
+
 ```
+
+### 3.1.4 其他函数
+
+1. 节点状态判断（一般在循环体中使用）
+
+```cpp
+ros::ok
+```
+
+2. 关闭节点（一般在条件体中使用）
+
+```cpp
+ros::shotdown()
+```
+
+3. 日志类的函数
+
+```cpp
+#include "ros/ros.h"
+
+int main(int argc, char *argv[])
+{
+    setlocale(LC_ALL,"");
+    ros::init(argc,argv,"logs");
+    ros::NodeHandle nh;
+
+    ROS_DEBUG("hello,DEBUG"); //不会输出
+    ROS_INFO("hello,INFO"); //默认白色字体
+    ROS_WARN("Hello,WARN"); //默认黄色字体
+    ROS_ERROR("hello,ERROR");//默认红色字体
+    ROS_FATAL("hello,FATAL");//默认红色字体
+    return 0;
+}
+```
+
+程序输出：
+
+![ ](pics/1.png)
+
 
 
