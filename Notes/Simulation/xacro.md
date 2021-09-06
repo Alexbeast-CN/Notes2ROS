@@ -184,7 +184,7 @@ xacro 文件 就会被解析为 urdf 文件，其内容不再展示。
 当然，如果不想转为 `URDF`， `ROS`也提供了直接使用 `Xacro`的方法。用户可以在`launch`文件中使用语句：
 
 ```xml
-<param name="robot_description" command="$(find xacro)/xacro $(find 功能包)/<xacro文件的路径>/xxx.xacro" />
+<param name="robot_description" command="$(find xacro)/xacro '$(find 功能包)/<xacro文件的路径>/xxx.xacro' " />
 ```
 
 与使用`URDF`文件的区别在于`param`标签后面的属性：
@@ -192,3 +192,17 @@ xacro 文件 就会被解析为 urdf 文件，其内容不再展示。
 ```xml
 <param name = "robot_description" textfile = "$(find 功能包)/<路径>/xxx.urdf"/>
 ```
+
+**可能出现的错误：**
+
+问题1：
+
+xacro: error: <font color = red >expected exactly one input file as argument
+RLException: Invalid <param> tag: Cannot load command parameter [robot_description]: command [['/opt/ros/noetic/lib/xacro/xacro', '/home/tim/My', 'ROS/My_ROS_WS4Study/ROS_ws/demo04/src/urdf01_rviz/urdf/xacro/car.urdf.xacro']] returned with code [2]. 
+
+Param xml is <param name="robot_description" command="$(find xacro)/xacro $(find urdf01_rviz)/urdf/xacro/car.urdf.xacro"/>
+The traceback for the exception was written to the log file</font>
+
+解决方法：
+
+根据报错可以看出，我的工作空间路径被一个逗号隔开了，原因是我在创建文件夹的时候，使用了逗号。在ROS功能包所在的工作空间路径中，不能使用带有空格的文件名。
